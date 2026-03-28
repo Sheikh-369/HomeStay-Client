@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #1A1714;
+  --color-accent: #C4873A;
+  --color-accent-light: #D9A05E;
+  --color-bg: #F7F3EE;
+  --color-cream: #FDFAF6;
+  --color-sage: #8A9080;
+  --color-border: rgba(26, 23, 20, 0.1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-100 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-200 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-300 {
+  transition-delay: 0.3s;
+}
+
+.reveal-delay-400 {
+  transition-delay: 0.4s;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(253, 250, 246, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Parallax container */
+.parallax-bg {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* Magazine heading scale */
+.display-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.display-heading-sm {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+/* Hover list item slide */
+.list-item-hover {
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.group:hover .list-item-hover {
+  transform: translateX(1rem);
+}
+
+/* Amber accent text */
+.text-accent {
+  color: var(--color-accent);
+}
+
+/* Border heavy */
+.border-heavy {
+  border-bottom: 6px solid var(--color-primary);
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+}
+
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(26, 23, 20, 0.12);
+}
+
+/* Pulse dot */
+@keyframes pulse-amber {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.pulse-amber {
+  animation: pulse-amber 2s ease-in-out infinite;
+}
+
+/* Grayscale hover */
+.img-grayscale {
+  filter: grayscale(40%);
+  transition: filter 0.7s ease;
+}
+
+.img-grayscale:hover {
+  filter: grayscale(0%);
+}
+
+/* Form input styles */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--color-cream);
+  border: 1.5px solid var(--color-border);
+  border-radius: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: var(--color-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(196, 135, 58, 0.15);
+}
+
+.form-input.error {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.12);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
+  opacity: 0.7;
+}
+
+/* Bento grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+/* Section divider */
+.section-tag {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* Footer marquee-free scroll text */
+.footer-tagline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-style: italic;
+  opacity: 0.5;
+}
+
+/* Pricing card middle elevated */
+.pricing-featured {
+  transform: translateY(-2rem);
+}
+
+@media (max-width: 768px) {
+  .pricing-featured {
+    transform: translateY(0);
+  }
+}
