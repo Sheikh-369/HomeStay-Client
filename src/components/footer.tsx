@@ -63,6 +63,14 @@ export default function Footer() {
             </a>
           </div>
           <p className="text-xs text-primary/30 font-medium">© 2026 PGStay. All rights reserved.</p>
+          {/* Admin entry point */}
+          <Link
+            href="/admin/login"
+            className="text-xs text-primary/20 hover:text-primary/50 transition-colors duration-200 font-medium"
+            aria-label="Admin login"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>

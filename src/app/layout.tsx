@@ -1,20 +1,8 @@
-import { Fraunces, DM_Sans } from "next/font/google";
+'use client'
 import "./globals.css";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fraunces",
-  weight: ["300", "400", "500", "600", "700", "900"],
-  style: ["normal", "italic"],
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-dm-sans",
-  weight: ["300", "400", "500", "600", "700"],
-});
+import { Toaster } from 'react-hot-toast'
+import { Provider } from "react-redux";
+import store from "../lib/store/store";
 
 export default function RootLayout({
   children,
@@ -22,8 +10,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${dmSans.variable}`}>
-      <body className="antialiased">{children}</body>
+    <html lang="en" data-scroll-behavior="smooth">
+      <body className="antialiased">
+        <Provider store={store}>
+        {children}
+        <Toaster position="top-right" reverseOrder={false} />
+        </Provider>
+        </body>
     </html>
   );
 }

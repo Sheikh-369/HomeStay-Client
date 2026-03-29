@@ -77,7 +77,7 @@ export default function TestimonialsSection() {
         <div className="reveal flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
             <span className="section-tag block mb-3">Resident Stories</span>
-            <h2 id="testimonials-heading" className="display-heading-sm text-primary font-semibold whitespace-nowrap">
+            <h2 id="testimonials-heading" className="display-heading-sm text-primary">
               What our residents{' '}
               <span className="italic font-light text-accent/80">actually say.</span>
             </h2>
