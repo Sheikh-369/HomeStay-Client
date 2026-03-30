@@ -48,6 +48,7 @@ export function fetchAllBookings() {
       }
     } catch (error: any) {
       console.error(error);
+      console.log("Full Error Response:", error.response?.data);
       dispatch(setStatus(Status.ERROR));
       return { success: false, message: error.response?.data?.message || "Fetch failed" };
     }
@@ -65,7 +66,7 @@ export function createBooking(bookingFormData: IBookingData) {
 
       if (response.status === 200 || response.status === 201) {
         dispatch(setStatus(Status.SUCCESS));
-        dispatch(fetchAllBookings())
+        // dispatch(fetchAllBookings())
         return { success: true, message: response.data.message };
       } else {
         dispatch(setStatus(Status.ERROR));
