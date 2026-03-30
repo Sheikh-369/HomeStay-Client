@@ -6,7 +6,6 @@ import API from "../../http/API";
 
 const initialState:IUserSliceState={
     userData:[],
-    selectedUser:null, 
     status:Status.IDLE
 
 }

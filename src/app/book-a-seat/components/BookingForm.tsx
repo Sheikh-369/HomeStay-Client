@@ -312,7 +312,6 @@ export default function BookingForm() {
             htmlFor="idType"
             required
             error={errors.idType?.message}
-            className='sm:col-span-2'
           >
             <select
               id="idType"
@@ -330,7 +329,28 @@ export default function BookingForm() {
               <option value="passport">Passport</option>
               <option value="license">Driving License</option>
             </select>
-          </FormField>         
+          </FormField>
+
+          <FormField
+            label="ID Number"
+            htmlFor="idNumber"
+            required
+            error={errors.idNumber?.message}
+          >
+            <input
+              id="idNumber"
+              type="text"
+              aria-required="true"
+              aria-invalid={!!errors.idNumber}
+              aria-describedby={errors.idNumber ? 'idNumber-error' : undefined}
+              className={`form-input ${errors.idNumber ? 'error' : ''}`}
+              placeholder="Enter ID number"
+              {...register('idNumber', {
+                required: 'ID number is required',
+                minLength: { value: 4, message: 'Enter a valid ID number' },
+              })}
+            />
+          </FormField>
 
           <FormField
             label="Upload ID Document"

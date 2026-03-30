@@ -18,7 +18,6 @@ export interface IUserData {
 };
 
 export interface IUserSliceState{
-    userData:IUserData[],
-    selectedUser: IUserData | null; 
+    userData:IUserData[], 
     status:Status
 }   
