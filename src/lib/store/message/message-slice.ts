@@ -84,3 +84,22 @@ export function deleteMessage(id: string) {
     }
   };
 }
+
+// ****************** MARK MESSAGE AS READ THUNK **************************
+export function markMessageAsRead(id: string) {
+  return async function markReadThunk(dispatch: AppDispatch) {
+    try {
+      // 1. Tell the backend this message is read
+      // Note: adjust the URL/Method (patch vs put) to match your API
+      const response = await APIWITHTOKEN.patch(`message/${id}`, { read: true });
+
+      if (response.status === 200) {
+        // 2. Refresh the messages list so the Sidebar counter updates
+        dispatch(fetchMessages()); 
+        return { success: true };
+      }
+    } catch (error: any) {
+      console.error("Failed to mark message as read", error);
+    }
+  };
+}

@@ -6,7 +6,7 @@ import { StatCard, StatusBadge } from './AdminShared';
 import { useAppDispatch, useAppSelector } from '@/src/lib/store/hooks/hooks';
 import { IBookingData } from '@/src/lib/store/booking/booking-slice-type';
 import { adminDeleteBooking, adminUpdateBooking, fetchAllBookings } from '@/src/lib/store/booking/booking-slice';
-import { fetchMessages } from '@/src/lib/store/message/message-slice';
+import { fetchMessages, markMessageAsRead } from '@/src/lib/store/message/message-slice';
 import { IMessageData } from '@/src/lib/store/message/message-slice-type';
 import { BookingStatus, PaymentStatus } from '@/src/lib/global/type';
 import { fetchRooms } from '@/src/lib/store/room/room-slice';
@@ -34,7 +34,7 @@ export default function OverviewTab({ onTabChange }: OverviewTabProps) {
   const stats = {
     total: bookingData.length,
     active: bookingData.filter(b => b.bookingStatus === BookingStatus.CONFIRMED).length,
-    unreadMessages: messages.length,
+    unreadMessages: messages.filter(m => !m.read).length,
   };
 
   const handleUpdateStatus = async (id: string, payStatus: PaymentStatus) => {
@@ -125,7 +125,13 @@ export default function OverviewTab({ onTabChange }: OverviewTabProps) {
         <div className="divide-y divide-primary/5">
           {messages.length > 0 ? (
             messages.slice(0, 5).map((msg) => (
-              <div key={msg.id} onClick={() => setSelectedMessage(msg)} className="px-4 py-4 flex items-start gap-3 cursor-pointer hover:bg-primary/3 transition-colors active:bg-primary/5">
+              <div key={msg.id} onClick={() => {
+  setSelectedMessage(msg);
+  // If it's unread, mark it as read in the DB and Redux
+  if (!msg.read && msg.id) {
+    dispatch(markMessageAsRead(msg.id));
+  }
+}} className="px-4 py-4 flex items-start gap-3 cursor-pointer hover:bg-primary/3 transition-colors active:bg-primary/5">
                 <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-xs font-bold text-primary uppercase">{msg.name?.charAt(0) || '?'}</div>
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-start">
@@ -210,7 +216,12 @@ export default function OverviewTab({ onTabChange }: OverviewTabProps) {
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button onClick={() => handleUpdateStatus(selectedBooking.id!, PaymentStatus.VERIFIED)} className="flex-1 py-3.5 bg-accent text-cream text-sm font-bold rounded-xl active:scale-95 transition-all">Approve</button>
-              <button onClick={() => dispatch(adminDeleteBooking(selectedBooking.id!)).then(() => setSelectedBooking(null))} className="flex-1 py-3.5 border border-red-100 text-red-500 text-sm font-bold rounded-xl active:scale-95 transition-all">Reject</button>
+              <button 
+                onClick={() => handleUpdateStatus(selectedBooking.id!, PaymentStatus.REJECTED)} 
+                className="flex-1 py-3.5 border border-red-100 text-red-500 text-sm font-bold rounded-xl active:scale-95 transition-all"
+              >
+                Reject
+              </button>
             </div>
           </div>
         )}

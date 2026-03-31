@@ -193,7 +193,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import { useAppDispatch } from '@/src/lib/store/hooks/hooks';
-import { deleteMessage, fetchMessages } from '@/src/lib/store/message/message-slice';
+import { deleteMessage, fetchMessages, markMessageAsRead } from '@/src/lib/store/message/message-slice';
 import { IMessageData } from '@/src/lib/store/message/message-slice-type';
 
 interface MessagesTabProps {
@@ -210,10 +210,13 @@ export default function MessagesTab({ messages }: MessagesTabProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const openMessage = (msg: IMessageData) => {
-    setSelectedMsg(msg);
-    // Note: If you add an 'updateMessage' thunk later, 
-    // call it here to set msg.read = true in the DB.
-  };
+  setSelectedMsg(msg);
+
+  // If the message is currently unread, trigger the thunk
+  if (!msg.read && msg.id) {
+    dispatch(markMessageAsRead(msg.id));
+  }
+};
 
   const handleSendReply = () => {
     if (!replyMsg) return;

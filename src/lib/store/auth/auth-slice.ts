@@ -3,6 +3,7 @@ import { IUserData, IUserSliceState } from "./auth-slice-type";
 import { AppDispatch } from "../store";
 import { Status } from "../../global/type";
 import API from "../../http/API";
+import APIWITHTOKEN from "../../http/APIWithToken";
 
 const initialState:IUserSliceState={
     userData:[],
@@ -122,28 +123,60 @@ export function resetPassword(resetPasswordData: IUserData) {
   };
 }
 
-//update user profile
-// export function updateUserProfile(id: string, updatedData: FormData) {
-//   return async function updateUserProfileThunk(dispatch: AppDispatch) {
-//     dispatch(setStatus(Status.LOADING));
-//     try {
-//       const response = await APIWITHTOKEN.patch(`/auth/update-profile/${id}`, updatedData, {
-//         headers: { "Content-Type": "multipart/form-data" } // for file uploads
-//       });
+// get user by id
+export function fetchUserById(id: string) {
+  return async function fetchUserByIdThunk(dispatch: AppDispatch) {
+    dispatch(setStatus(Status.LOADING));
 
-//       if (response.status === 200 || response.status === 201) {
-//         dispatch(setUser(response.data.user)); // update user in store
-//         dispatch(setStatus(Status.SUCCESS));
-//         dispatch(fetchUserById(id))
-//         return { success: true, message: response.data.message };
-//       } else {
-//         dispatch(setStatus(Status.ERROR));
-//         return { success: false, message: response.data.message || "Something went wrong" };
-//       }
-//     } catch (error: any) {
-//       console.log(error);
-//       dispatch(setStatus(Status.ERROR));
-//       return { success: false, message: error.response?.data?.message || "Profile update failed" };
-//     }
-//   };
-// }
+    try {
+      const response = await APIWITHTOKEN.get(`/auth/user/${id}`);
+
+      if (response.status === 200) {
+        dispatch(setUser(response.data.data)); // adjust based on API response
+        dispatch(setStatus(Status.SUCCESS));
+
+        return { success: true, data: response.data.data };
+      } else {
+        dispatch(setStatus(Status.ERROR));
+        return {
+          success: false,
+          message: response.data.message || "Failed to fetch user",
+        };
+      }
+    } catch (error: any) {
+      console.log(error);
+      dispatch(setStatus(Status.ERROR));
+
+      return {
+        success: false,
+        message: error.response?.data?.message || "Something went wrong",
+      };
+    }
+  };
+}
+
+//update user profile
+export function updateUserProfile(id: string, updatedData: FormData) {
+  return async function updateUserProfileThunk(dispatch: AppDispatch) {
+    dispatch(setStatus(Status.LOADING));
+    try {
+      const response = await APIWITHTOKEN.patch(`/auth/update-profile/${id}`, updatedData, {
+        headers: { "Content-Type": "multipart/form-data" } // for file uploads
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        dispatch(setUser(response.data.user)); // update user in store
+        dispatch(setStatus(Status.SUCCESS));
+        dispatch(fetchUserById(id))
+        return { success: true, message: response.data.message };
+      } else {
+        dispatch(setStatus(Status.ERROR));
+        return { success: false, message: response.data.message || "Something went wrong" };
+      }
+    } catch (error: any) {
+      console.log(error);
+      dispatch(setStatus(Status.ERROR));
+      return { success: false, message: error.response?.data?.message || "Profile update failed" };
+    }
+  };
+}
