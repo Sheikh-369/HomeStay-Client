@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { StatCard, StatusBadge } from './AdminShared';
-import { mockRooms } from './AdminTypes';
 import { useAppDispatch, useAppSelector } from '@/src/lib/store/hooks/hooks';
 import { IBookingData } from '@/src/lib/store/booking/booking-slice-type';
 import { adminDeleteBooking, adminUpdateBooking, fetchAllBookings } from '@/src/lib/store/booking/booking-slice';
 import { fetchMessages } from '@/src/lib/store/message/message-slice';
 import { IMessageData } from '@/src/lib/store/message/message-slice-type';
 import { BookingStatus, PaymentStatus } from '@/src/lib/global/type';
+import { fetchRooms } from '@/src/lib/store/room/room-slice';
 
 interface OverviewTabProps {
   onTabChange: (tab: string) => void;
@@ -20,6 +20,7 @@ export default function OverviewTab({ onTabChange }: OverviewTabProps) {
   
   const { messages } = useAppSelector((state) => state.messageSlice);
   const { bookingData } = useAppSelector((state) => state.bookingSlice);
+  const { rooms } = useAppSelector((state) => state.roomSlice);
   
   const [selectedBooking, setSelectedBooking] = useState<IBookingData | null>(null);
   const [selectedMessage, setSelectedMessage] = useState<IMessageData | null>(null);
@@ -27,6 +28,7 @@ export default function OverviewTab({ onTabChange }: OverviewTabProps) {
   useEffect(() => {
     dispatch(fetchAllBookings());
     dispatch(fetchMessages());
+    dispatch(fetchRooms())
   }, [dispatch]);
 
   const stats = {
@@ -66,8 +68,8 @@ export default function OverviewTab({ onTabChange }: OverviewTabProps) {
         />
         <StatCard 
           label="VACANT" 
-          value={mockRooms.filter(r => !r.occupied).length} 
-          sub={`of ${mockRooms.length}`} 
+          value={rooms.filter(r => r.status === "Vacant").length} 
+          sub={`of ${rooms.length}`} 
           icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>}
         />
         <StatCard 
