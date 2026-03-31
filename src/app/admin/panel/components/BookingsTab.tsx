@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBadge } from './AdminShared';
 import Modal from './Modal';
-import { BookingStatus, Status } from '@/src/lib/global/type';
+import { BookingStatus, PaymentStatus } from '@/src/lib/global/type'; // Keep for filtering
 import { useAppDispatch, useAppSelector } from '@/src/lib/store/hooks/hooks';
 import { IBookingData } from '@/src/lib/store/booking/booking-slice-type';
 import { adminDeleteBooking, adminUpdateBooking, fetchAllBookings } from '@/src/lib/store/booking/booking-slice';
@@ -12,7 +12,7 @@ const STATUS_OPTIONS = Object.values(BookingStatus);
 
 export default function BookingsTab() {
   const dispatch = useAppDispatch();
-  const { bookingData, status } = useAppSelector((state) => state.bookingSlice);
+  const { bookingData } = useAppSelector((state) => state.bookingSlice);
 
   const [filter, setFilter] = useState('All');
   const [viewBooking, setViewBooking] = useState<IBookingData | null>(null);
@@ -35,9 +35,9 @@ export default function BookingsTab() {
 
   const handleEditSave = async () => {
     if (editForm && editForm.id) {
-      // FIX: Passing the ID and the specific Status required by your Thunk
-      // If your Thunk is expecting (id, paymentStatus), ensure the second arg matches that type
-      const res = await dispatch(adminUpdateBooking(editForm.id, editForm.bookingStatus as any));
+      // 1. We pass the ID and the paymentStatus (pending/verified/rejected)
+      // The backend will see 'verified' and auto-update the booking status to 'confirmed'
+      const res = await dispatch(adminUpdateBooking(editForm.id, editForm.paymentStatus as PaymentStatus));
       
       if (res.success) {
         setEditBooking(null);
@@ -121,43 +121,49 @@ export default function BookingsTab() {
                 { label: 'Check-Out', value: viewBooking.exitDate },
                 { label: 'Phone', value: viewBooking.phone },
                 { label: 'Email', value: viewBooking.email },
+                { label: 'Payment Status', value: viewBooking.paymentStatus },
               ].map(({ label, value }) => (
                 <div key={label} className="bg-primary/4 rounded-xl p-3">
                   <p className="text-xs text-primary/40 font-semibold uppercase tracking-wider mb-1">{label}</p>
-                  <p className="text-sm font-semibold text-primary">{value}</p>
+                  <p className="text-sm font-semibold text-primary capitalize">{value}</p>
                 </div>
               ))}
             </div>
             <div className="flex gap-2 pt-2">
-              <button onClick={() => { setViewBooking(null); openEdit(viewBooking); }} className="flex-1 py-2.5 px-4 bg-primary text-cream text-sm font-semibold rounded-xl hover:bg-primary/85 transition-all">Edit Booking</button>
+              <button onClick={() => { setViewBooking(null); openEdit(viewBooking); }} className="flex-1 py-2.5 px-4 bg-primary text-cream text-sm font-semibold rounded-xl hover:bg-primary/85 transition-all">Update Status</button>
               <button onClick={() => { setViewBooking(null); setDeleteTarget(viewBooking); }} className="flex-1 py-2.5 px-4 border border-red-200 text-red-500 text-sm font-semibold rounded-xl hover:bg-red-50 transition-all">Delete Booking</button>
             </div>
           </div>
         )}
       </Modal>
 
-      {/* Edit Modal */}
-      <Modal isOpen={!!editBooking} onClose={() => { setEditBooking(null); setEditForm(null); }} title="Update Status" size="md">
+      {/* Edit Modal (Focused on Payment Verification) */}
+      <Modal isOpen={!!editBooking} onClose={() => { setEditBooking(null); setEditForm(null); }} title="Verify Payment" size="md">
         {editForm && (
           <div className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-primary/40 uppercase mb-1">Full Name</label>
               <input
                 type="text"
+                disabled
                 value={editForm.fullName}
-                onChange={(e) => setEditForm({ ...editForm, fullName: e.target.value })}
-                className="w-full px-4 py-2.5 bg-primary/5 border border-primary/10 rounded-xl text-sm focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2.5 bg-primary/5 border border-primary/10 rounded-xl text-sm opacity-60 cursor-not-allowed"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-primary/40 uppercase mb-1">Booking Status</label>
+              <label className="block text-xs font-bold text-primary/40 uppercase mb-1">Payment Status</label>
               <select
-                value={editForm.bookingStatus}
-                onChange={(e) => setEditForm({ ...editForm, bookingStatus: e.target.value as BookingStatus })}
-                className="w-full px-4 py-2.5 bg-primary/5 border border-primary/10 rounded-xl text-sm focus:outline-none focus:border-accent"
+                value={editForm.paymentStatus}
+                onChange={(e) => setEditForm({ ...editForm, paymentStatus: e.target.value as any })}
+                className="w-full px-4 py-2.5 bg-primary/5 border border-primary/10 rounded-xl text-sm focus:outline-none focus:border-accent transition-all"
               >
-                {STATUS_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
+                <option value="pending">Pending</option>
+                <option value="verified">Verified (Confirm Booking)</option>
+                <option value="rejected">Rejected (Cancel Booking)</option>
               </select>
+              <p className="text-[10px] text-primary/30 mt-2 italic px-1">
+                * Setting status to "Verified" will automatically mark this booking as "Confirmed" on the backend.
+              </p>
             </div>
             <div className="flex gap-2 pt-2">
               <button onClick={handleEditSave} className="flex-1 py-2.5 px-4 bg-primary text-cream text-sm font-semibold rounded-xl hover:bg-primary/85 transition-all">Save Changes</button>

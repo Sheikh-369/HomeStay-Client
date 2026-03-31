@@ -36,3 +36,13 @@ export enum BookingStatus {
   CONFIRMED = "confirmed",
   CANCELLED = "cancelled",
 }
+
+export enum BillingCycle {
+  Daily = 'daily',
+  Monthly = 'monthly',
+}
+
+export enum OccupancyStatus {
+  Active = 'active',
+  CheckedOut = 'checked-out',
+}

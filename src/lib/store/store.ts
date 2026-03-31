@@ -3,6 +3,7 @@ import authSlice from "../store/auth/auth-slice"
 import bookingSlice from "../store/booking/booking-slice"
 import messageSlice from "../store/message/message-slice"
 import roomSlice from "../store/room/room-slice"
+import occupancySlice from "../store/occupancy/occupancy-slice"
 
 
 const store=configureStore({
@@ -10,7 +11,8 @@ const store=configureStore({
         authSlice,
         bookingSlice,
         messageSlice,
-        roomSlice  
+        roomSlice,
+        occupancySlice  
     }})
 export default store
 export type AppDispatch=typeof store.dispatch

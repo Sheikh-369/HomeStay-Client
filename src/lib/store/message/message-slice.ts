@@ -69,7 +69,7 @@ export function deleteMessage(id: string) {
   return async function deleteMessageThunk(dispatch: AppDispatch) {
     dispatch(setStatus(Status.LOADING));
     try {
-      const response = await API.delete(`message/${id}`);
+      const response = await APIWITHTOKEN.delete(`message/${id}`);
       if (response.status === 200) {
         dispatch(setStatus(Status.SUCCESS));
         dispatch(fetchMessages())

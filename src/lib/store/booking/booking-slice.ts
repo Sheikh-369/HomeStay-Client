@@ -86,7 +86,7 @@ export function adminUpdateBooking(id: string, paymentStatus: PaymentStatus) {
     dispatch(setStatus(Status.LOADING));
     try {
       const response = await APIWITHTOKEN.patch(`booking/${id}`, { paymentStatus });
-
+      
       if (response.status === 200) {
         // Update slice with the updated booking
         dispatch(setStatus(Status.SUCCESS));
@@ -98,6 +98,7 @@ export function adminUpdateBooking(id: string, paymentStatus: PaymentStatus) {
       }
     } catch (error: any) {
       console.error(error);
+      console.log("BACKEND ERROR DATA:", error.response?.data);
       dispatch(setStatus(Status.ERROR));
       return { success: false, message: error.response?.data?.message || "Update failed" };
     }
