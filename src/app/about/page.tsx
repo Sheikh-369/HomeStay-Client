@@ -133,9 +133,9 @@ export default function AboutPage() {
                     
                   </div>
                   <div>
-                    <h2 className="font-display text-xl font-semibold text-primary">Rajesh Sharma</h2>
+                    <h2 className="font-display text-xl font-semibold text-primary">Rajesh Shrestha</h2>
                     <p className="text-sm text-accent font-medium">Founder & Owner</p>
-                    <p className="text-xs text-primary/40 mt-0.5">Pune, Maharashtra</p>
+                    <p className="text-xs text-primary/40 mt-0.5">Chabehil, Kathmandu</p>
                   </div>
                 </div>
                 <p className="text-sm text-primary/60 leading-relaxed">

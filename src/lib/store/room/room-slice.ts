@@ -94,7 +94,7 @@ export function updateRoom(id: string, roomData: Partial<IRoomData>) {
   return async function updateRoomThunk(dispatch: AppDispatch) {
     dispatch(setStatus(Status.LOADING));
     try {
-      const response = await APIWITHTOKEN.put(`room/${id}`, roomData);
+      const response = await APIWITHTOKEN.patch(`room/${id}`, roomData);
 
       if (response.status === 200) {
         dispatch(setStatus(Status.SUCCESS));

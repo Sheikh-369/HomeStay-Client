@@ -27,7 +27,7 @@ export default function ServicesCtaStrip() {
               All services included in one price.
             </h2>
             <p className="text-primary/55 text-base">
-              Starting at ₹6,000/month — utilities, WiFi, security, and laundry included.
+              Starting at ₹9,999/month — utilities, WiFi, security, and laundry included.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
@@ -39,7 +39,7 @@ export default function ServicesCtaStrip() {
               Book a Seat
             </Link>
             <Link
-              href="/homepage"
+              href="/"
               className="px-7 py-3.5 border border-primary/15 text-primary rounded-full text-sm font-medium hover:bg-primary/5 transition-colors text-center"
               aria-label="Go back to homepage"
             >

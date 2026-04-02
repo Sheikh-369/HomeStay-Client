@@ -61,7 +61,7 @@ export default function CtaBanner() {
                 className="px-9 py-4 border border-white/20 text-cream rounded-full text-base font-medium hover:bg-white/10 transition-colors"
                 aria-label="Call PGStay at +91 98765 43210"
               >
-                Call +91 98765 43210
+                Call +977 9804951369
               </a>
             </div>
 

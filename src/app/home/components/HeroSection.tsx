@@ -44,7 +44,7 @@ export default function HeroSection() {
         {/* Availability badge */}
         <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-white/50 backdrop-blur-sm text-sm text-accent mb-8">
           <span className="w-2 h-2 rounded-full bg-accent pulse-amber" aria-hidden="true" />
-          <span className="font-medium">Rooms available from ₹6,000/month</span>
+          <span className="font-medium">Rooms available from ₹9,999/month</span>
         </div>
 
         <h1 className="reveal font-display text-6xl md:text-8xl lg:text-9xl leading-[0.88] tracking-tight mb-7 text-primary">
@@ -121,7 +121,7 @@ export default function HeroSection() {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-display font-bold text-primary">₹7,500</p>
+              <p className="text-2xl font-display font-bold text-primary">₹9,999</p>
               <p className="text-xs text-primary/40 font-medium">/month · all inclusive</p>
             </div>
             <span className="px-3 py-1 rounded-full bg-accent/15 text-accent text-xs font-bold uppercase tracking-wide">3 seats left</span>

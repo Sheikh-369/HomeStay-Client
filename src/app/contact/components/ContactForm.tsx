@@ -92,7 +92,7 @@ export default function ContactForm() {
               type="text"
               value={form.name}
               onChange={handleChange}
-              placeholder="Priya Mehta"
+              placeholder="Zunaid Sheikh"
               className={`form-input ${errors.name ? 'error' : ''}`}
             />
             {errors.name && <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.name}</p>}
@@ -106,7 +106,7 @@ export default function ContactForm() {
               type="email"
               value={form.email}
               onChange={handleChange}
-              placeholder="priya@example.com"
+              placeholder="zunaid@example.com"
               className={`form-input ${errors.email ? 'error' : ''}`}
             />
             {errors.email && <p className="mt-1.5 text-xs text-red-500 font-medium">{errors.email}</p>}
@@ -123,7 +123,7 @@ export default function ContactForm() {
               type="tel"
               value={form.phone || ''}
               onChange={handleChange}
-              placeholder="+91 98765 43210"
+              placeholder="+977 98049 51369"
               className="form-input"
             />
           </div>

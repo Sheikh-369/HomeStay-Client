@@ -19,33 +19,33 @@ const testimonials: Testimonial[] = [
 {
   id: 1,
   quote: "PGStay completely changed my college experience. The room is clean, the WiFi never cuts out during online classes, and the caretaker uncle is genuinely helpful. I've stayed for 14 months and renewed without a second thought.",
-  name: 'Priya Nair',
+  name: 'Smriti Bajgain',
   role: 'B.Tech Student',
   college: 'MIT Pune',
-  avatarSrc: "https://img.rocket.new/generatedImages/rocket_gen_img_10234deb1-1763301316285.png",
-  avatarAlt: 'Priya Nair, B.Tech student at MIT Pune',
+  avatarSrc: "https://images.unsplash.com/photo-1771654805882-95967672e6c1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fG5lcGFsaSUyMG1vZGVsfGVufDB8fDB8fHww",
+  avatarAlt: 'Smriti Bajgain, B.Tech student at MIT Pune',
   rating: 5,
   duration: '14 months'
 },
 {
   id: 2,
   quote: "As a working professional new to Pune, finding safe accommodation was stressful. PGStay's gated entry and CCTV made me feel secure from day one. The food plan saves me so much time on weekdays.",
-  name: 'Arjun Mehta',
+  name: 'Arjun Poudel',
   role: 'Software Engineer',
   college: 'Infosys, Hinjewadi',
-  avatarSrc: "https://img.rocket.new/generatedImages/rocket_gen_img_148047a53-1773111724900.png",
-  avatarAlt: 'Arjun Mehta, software engineer at Infosys',
+  avatarSrc: "https://images.unsplash.com/photo-1641466578751-46bfd407146a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmVwYWxpJTIwbW9kZWx8ZW58MHx8MHx8fDA%3D",
+  avatarAlt: 'Arjun Poudel, software engineer at Infosys',
   rating: 5,
   duration: '8 months'
 },
 {
   id: 3,
   quote: "The booking process was so straightforward — I filled the form, got a callback within 2 hours, and moved in within a week. The room had everything: a proper study desk, wardrobe, even a reading lamp. Worth every rupee.",
-  name: 'Sneha Kulkarni',
+  name: 'Sarita Phuyel',
   role: 'MBA Student',
   college: 'Symbiosis, Pune',
-  avatarSrc: "https://img.rocket.new/generatedImages/rocket_gen_img_1e51a5c45-1771428636991.png",
-  avatarAlt: 'Sneha Kulkarni, MBA student at Symbiosis',
+  avatarSrc: "https://media.istockphoto.com/id/1345121223/photo/young-beautiful-woman-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=fWjQu5Lz_HvSdu8zm-EDqJw5tORYCC2u31gIFRqfEy4=",
+  avatarAlt: 'Sarita Phuyel, MBA student at Symbiosis',
   rating: 5,
   duration: '6 months'
 }];

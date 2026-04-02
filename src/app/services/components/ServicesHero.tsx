@@ -48,7 +48,7 @@ export default function ServicesHero() {
             { value: '5+', label: 'Core Services' },
             { value: '100%', label: 'Utility Included' },
             { value: '24/7', label: 'Security & Support' },
-            { value: '₹6K', label: 'Starting Price' },
+            { value: '₹9K', label: 'Starting Price' },
           ]?.map((s) => (
             <div
               key={s?.label}
